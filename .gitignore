@@ -3,7 +3,8 @@ coverage/
 dist/
 node_modules/
 jspm_packages/
-
+.yo-rc.json
+.idea
 
 # Created by https://www.gitignore.io/api/macos,bower,node,intellij+iml
 
