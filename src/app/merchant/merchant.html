@@ -1,0 +1,95 @@
+<div class="container grey lighten-3">
+    <div class="card-panel white no-margin-top no-border">
+        <div class="row">
+            <div class="col s3">
+                <img class="responsive-img"  ng-src="{{ vm.merchant.imageLink }}"/>
+            </div>
+            <div class="col s9">
+                <a class="btn-floating right" ng-class="vm.merchant.followsAlready ?  'teal lighten-3' : 'grey lighten-1'" ng-click="vm.merchant.followsAlready ? vm.unfollowMerchant(vm.merchant) : vm.followMerchant(vm.merchant)"><i class="material-icons">person_add</i></a>
+                <p class="no-margin-top grey-text">
+                    <span class="black-text">{{vm.merchant.pseudo}}</span><br/>
+                    {{ vm.merchant.adress }} <br/>
+                    {{vm.merchant.city}}
+                </p>
+            </div>
+            <div class="col s12">
+                <span ng-repeat="category in vm.merchant.category" class="new badge" ng-class="category.color" style="position:initial;margin-right:10px;" data-badge-caption="{{category.displayName}}"></span><br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <a class="btn teal lighten-3" ng-href="tel:{{vm.merchant.phone}}" ><i class="material-icons">phone</i></a>
+                <a class="btn teal lighten-3" href="#map"><i class="material-icons">directions</i></a>
+                <a ng-repeat="action in vm.merchant.externalLinks" class="grey-text" ng-href="{{action.href}}" target="_blank">
+                    <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+                    <span ng-if="!action.code">{{action.name}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-if="vm.lastDeals.length" class="card-panel white no-margin-top no-border">
+        <div class="row">
+            <div class="col s12">
+                <p class="flow-text">Derniers deals:</p>
+                <ul class="collection no-margin-top">
+                    <!-- Demo: orderDate to remove -->
+                    <li ng-repeat="deal in vm.lastDeals | orderBy : 'orderDate'" class="collection-item">
+                        <p>
+                            <span class="grey-text"> {{deal.time.valueText}}</span><br/>
+                            {{deal.description}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-panel white no-margin-top no-border">
+        <div class="row">
+            <div class="col s12">
+                <a class="btn" ng-click="vm.merchant.followsAlready ? vm.unfollowMerchant(vm.merchant) : vm.followMerchant(vm.merchant)" ng-class="vm.merchant.followsAlready ? 'teal lighten-3' : 'grey lighten-1'"><i class="material-icons left">person_add</i>{{ vm.merchant.followsAlready ? 'Abonné' : 'S\'abonner' }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-panel white no-margin-top no-border">
+        <div id="map" class="row">
+            <div class="col s12">
+                <div style="width:100%; height:300px;">
+                    <ng-map center="[{{vm.lat}}, {{vm.long}}]">
+                        <marker position="[{{vm.lat}}, {{vm.long}}]"/>
+                        <shape name="circle" radius="400" center="[40.74,-74.18]" radius="4000"/>
+                        <control name="overviewMap" opened="true"/>
+                        <directions
+                                draggable="true"
+                                panel="directions-panel"
+                                travel-mode=""
+                                scrollwheel="false"
+                                waypoints=""
+                                origin="[{{vm.initLat}},{{vm.initLong}}]"
+                                destination="[{{vm.lat}}, {{vm.long}}]">
+                        </directions>
+                    </ng-map>
+                    <div ng-show="vm.isLoadingMap" style="width: 100%;height: 300px;position: relative;bottom: 300px;background: rgba(0,0,0,0.8);">
+                        <div class="valign-wrapper" style="height:100%">
+                        <div class="valign" style="margin:auto;text-align: center;">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer ">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div><br/>
+                            <div class="white-text">Loading ...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

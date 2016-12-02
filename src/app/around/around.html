@@ -1,0 +1,65 @@
+<div class="scroller-container container grey lighten-3" style="height:100%;overflow: auto;" pull-to-refresh hide-on-scroll-down refresh-function="$ctrl.refresh()">
+    <div class="city-text center" ng-show="$ctrl.cityText">
+        <h3 class="white-text" style="background: rgba(0,0,0,0.5); margin: 0; padding: 1.46rem 0 1.168rem 0;display: flex; flex-direction: column; justify-content: space-around;">
+            <span style="font-size: 1.3rem;">nos bons plans à </span>
+            <span ng-click="$ctrl.editCity = true;" style="font-family:'Damion',cursive; font-size:4rem;">{{$ctrl.cityText}}</span></h3>
+    </div>
+    <div ng-show="$ctrl.label.length > 0" class=" label-filter-container" style="padding:0 10px;">
+        <span class="right black-text" ng-click="$event.stopPropagation();$ctrl.resetLabels();">Voir tous</span>
+        Filtré par: <span ng-repeat="label in $ctrl.label" class="new badge" ng-class="label.color" ng-click="$event.stopPropagation();$ctrl.removeLabel(label);" style="position:initial;margin-right:10px;" data-badge-caption="{{label.displayName}}"></span>
+    </div>
+    <div ng-show="$ctrl.editCity;" style="display:flex;">
+        <input type="text" ng-model="$ctrl.newCity"/>
+        <a class="btn teal" ng-click="$ctrl.changeCity($ctrl.newCity)">Changer</a>
+    </div>
+    <ul class="no-margin-top no-border">
+        <!-- Demo: orderDate to remove -->
+
+        <li ng-repeat="deal in $ctrl.deals | orderBy : 'route.distance.value' " ng-click="$ctrl.browseMerchant(deal.merchant);" class="">
+            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+                <div class="card-content" style="padding:10px;">
+                    <div class="row" style="margin-bottom:0;">
+                        <div class="col s3">
+                            <img ng-src="{{deal.merchant.imageLink}}" alt="" class="responsive-img">
+                        </div>
+                        <div class="col s9">
+                            <div><span ng-repeat="category in deal.merchant.category" class="new badge" ng-class="category.color" ng-click="$event.stopPropagation();$ctrl.selectLabel(category);" style="position:initial;margin-right:10px;" data-badge-caption="{{category.displayName}}"></span><br/></div>
+                            <a class="black-text" ng-href="/merchants/{{deal.merchant._id}}"><b>{{deal.merchant.pseudo}}</b></a><br/>
+                            <span class="grey-text"> {{deal.route.distance.text}}</span> - <span class="grey-text"> {{deal.time.valueText}}</span><br/>
+                            <p style="margin: 0;">{{deal.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="deal.externalLinks.length > 0 || deal.actions.call">
+                    <a ng-repeat="action in deal.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
+                        <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+                        <span ng-if="!action.code">{{action.name}}</span>
+                    </a>
+                    <a ng-if="deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
+                </div>
+            </div>
+
+        </li>
+
+        <li ng-if="$ctrl.deals.length === 0" class="collection-item center" style="padding:20px;">
+            <span style="margin:50px 0;display:block;">Malheureusement, il n'y a aucune annonce dans votre entourage ...<br/></span>
+            <a class="center btn" ng-click="$ctrl.editCity = true;"><i class="material-icons left">edit</i>Changer de ville</a>
+        </li>
+    </ul>
+
+    <div ng-class="$ctrl.isLoading ? 'active' : '' " class="white circle z-depth-2 mj-loader-wrapper">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer ">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

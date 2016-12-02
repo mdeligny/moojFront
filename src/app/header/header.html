@@ -1,0 +1,59 @@
+<div class="navbar-fixed hideable-on-scroll" ng-class="$ctrl.showMenu ? 'scroll-pinned' : 'scroll-unpinned' ">
+    <nav class="teal darken-1 white-text">
+        <div class="nav-wrapper container">
+            <ul class="left">
+                <li ng-show="!$ctrl.isHomePage">
+                    <a  ng-href="{{$ctrl.previousState}}" ng-click="$ctrl.resetFilter();" class="waves-effect waves-light">
+                        <i class="material-icons">keyboard_backspace</i>
+                    </a>
+                </li>
+                <li ng-show="$ctrl.isHomePage">
+                    <a class="waves-effect waves-light" href="#" data-activates="nav-menu" data-sidenav="left" data-menuwidth="250"
+                       data-closeonclick="true">
+                        <i class="material-icons">menu</i>
+                    </a>
+                </li>
+            </ul>
+
+            <a href="/" ng-click="$ctrl.resetFilter();" class="brand-logo">{{$ctrl.activePan}}</a>
+
+            <!--<ul class="right">
+                <li>
+                    <a href="#" data-activates='demoDropdown' dropdown data-beloworigin="true" data-stoppropagation="true" data-alignment="right" data-hover="false">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                </li>
+            </ul>-->
+
+        </div>
+    </nav>
+</div>
+
+<ul id='nav-menu' class='side-nav'>
+    <li style="height:200px;background:url('../../img/city.jpg');display: flex;flex-direction: column;justify-content: flex-end;">
+        <a class="white-text" style="height:48px;" href="/account">Mon compte</a>
+    </li>
+    <li><a class="black-text" href="/settings">Paramètres</a></li>
+    <li><a class="black-text" href="/merchants/new">Ajouter un commerçant</a></li>
+    <li class="divider"></li>
+    <li><a class="black-text" href="/about">Qui sommes-nous?</a></li>
+</ul>
+<ul class="side-nav" id="filter-menu">
+    <li><a ng-click="$ctrl.resetFilter();" href="/">Tous</a></li>
+    <li ng-class="category.isActive ? 'active' : ''" ng-repeat="category in $ctrl.categories">
+        <a>
+            <i ng-click="$ctrl.deployCategory(category)" class="material-icons left">{{category.isDeployed ? 'keyboard_arrow_down' : 'chevron_right'}}</i>
+            <span ng-click="$ctrl.setFilter(category)">{{category.displayName}}</span>
+            <ul ng-show="category.isDeployed">
+                <li ng-repeat="label in category.categories" ng-click="$ctrl.selectLabel(label)" ng-class="label.isActive ? 'active' : '' ">{{label.displayName}}</li>
+            </ul>
+        </a>
+    </li>
+</ul>
+
+<div style="position: fixed; bottom:50px; right:10px;z-index:9;" ng-show="$ctrl.isHomePage">
+    <a class="btn-floating teal waves-effect waves-light" href="#" data-activates="filter-menu" data-sidenav="right" data-menuwidth="250"
+       data-closeonclick="false">
+        <i class="material-icons">search</i>
+    </a>
+</div>

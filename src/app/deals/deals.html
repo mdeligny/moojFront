@@ -1,0 +1,68 @@
+<div class="scroller-container container  grey lighten-3" style="height:100%;overflow: auto;" pull-to-refresh hide-on-scroll-down
+     refresh-function="$ctrl.refresh()">
+    <div ng-show="$ctrl.label.length > 0" class="label-filter-container" style="padding:0 10px;">
+        <span class="right black-text" ng-click="$event.stopPropagation();$ctrl.resetLabels();">Voir tous</span>
+        Filtré par: <span ng-repeat="label in $ctrl.label" class="new badge" ng-class="label.color"
+                          ng-click="$event.stopPropagation();$ctrl.removeLabel(label);"
+                          style="position:initial;margin-right:10px;" data-badge-caption="{{label.displayName}}"></span>
+    </div>
+    <ul class="no-margin-top no-border">
+        <!-- Demo: orderDate to remove -->
+
+
+        <li ng-repeat="deal in $ctrl.deals | orderBy : 'orderDate'" ng-click="$ctrl.browseMerchant(deal.merchant);"
+            class="collection-item avatar">
+            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+                <div class="card-content" style="padding:10px;">
+                    <div class="row" style="margin-bottom:0;">
+                        <div class="col s3">
+                            <img ng-src="{{deal.merchant.imageLink}}" alt="" class="responsive-img">
+                        </div>
+                        <div class="col s9">
+                            <div><span ng-repeat="category in deal.merchant.category" class="new badge"
+                                       ng-class="category.color"
+                                       ng-click="$event.stopPropagation();$ctrl.selectLabel(category);"
+                                       style="position:initial;margin-right:10px;"
+                                       data-badge-caption="{{category.displayName}}"></span><br/>
+                            </div>
+                            <a class="black-text"
+                               ng-href="/merchants/{{deal.merchant._id}}"><b>{{deal.merchant.pseudo}}</b></a><span
+                                class="grey-text"> {{deal.time.valueText}}</span><br/>
+
+                            <p style="margin: 0;">{{deal.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="deal.actions.call || deal.merchant.externalLinks.length > 0">
+                    <a ng-repeat="action in deal.merchant.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
+                        <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+                        <span ng-if="!action.code">{{action.name}}</span>
+                    </a>
+                    <a ng-if="deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
+                </div>
+            </div>
+        </li>
+
+        <li ng-if="$ctrl.deals.length === 0" class="collection-item center" style="padding:20px;">
+            <span style="margin:50px 0;display:block;">
+                Pas de deal ... Pour le moment!<br/>
+                Allez dans la section découvrir, et choisissez les commerçants à suivre ! Vous verez leurs annonces dansMyMooj.<br/>
+            </span>
+        </li>
+    </ul>
+    <div ng-class="$ctrl.isLoading ? 'active' : '' " class="white circle z-depth-2 mj-loader-wrapper">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer ">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

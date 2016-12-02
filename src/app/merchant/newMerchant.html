@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="card-panel white  no-margin-top no-border">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="flow-text">Ajouter un commerçant</h1>
+            </div>
+            <div class="col s12 offset-m2 m8">
+                <form ng-submit="vm.addNewMerchant();">
+                    <div class="row">
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="text" placeholder="SARL Ma compagnie" ng-model="vm.newMerchant.name" >
+                            <label>Nom du commerçant</label>
+                        </div>
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="text" placeholder="Ma compagnie" ng-model="vm.newMerchant.pseudo" >
+                            <label>Nom affiché du commerçant</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="file-field col s12" input-field >
+                            <div class="btn">
+                                <span>Image</span>
+                                <input file-model="vm.imagesForm" name='file' accept="image/*" type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" placeholder="Ajoutez le logo du commerçant" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12" input-field>
+                            <select class="" ng-model="vm.newMerchant.category" material-select multiple watch ng-options="category as category.displayName for category in vm.categories">
+                                <option value="" disabled>Sélectionner une ou plusieurs catégories</option>
+                            </select>
+                            <label>Catégories du commerce</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="text" placeholder="089403948" ng-model="vm.newMerchant.phone" >
+                            <label>Numéro de téléphone pour le client</label>
+                        </div>
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="email"  placeholder="contact@monentreprise.com" ng-model="vm.newMerchant.email" >
+                            <label>Email de contact pour le client</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12" input-field>
+                            <input class="validate" required type="text" placeholder="33 rue de ma compagnie" ng-model="vm.newMerchant.adress" >
+                            <label>Adresse du magasin</label>
+                        </div>
+                        <div class="col s12" input-field>
+                            <input class="validate" required type="text" placeholder="Lille" ng-model="vm.newMerchant.city" >
+                            <label>Ville</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="text" placeholder="+336832893" ng-model="vm.newMerchant.moojPhone" >
+                            <label>Numéro de téléphone pour Mooj</label>
+                        </div>
+                        <div class="col s12 m6" input-field>
+                            <input class="validate" required type="email"  placeholder="communication@monentreprise.com" ng-model="vm.newMerchant.moojMail" >
+                            <label>Email pour Mooj</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <button type="submit" class="btn"><i class="material-icons left">send</i>Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,37 @@
+<div class="row height-body" ng-class="vm.showMenu ? '' : 'no-menu' " style="padding-bottom:40px;margin-bottom:0;">
+    <div class="col s12 white z-depth-1" style="position:fixed;z-index:2;">
+        <ul tabs reload="allTabContentLoaded">
+            <li class="tab col s3">
+                <a class="grey-text text-darken-3" ng-click="vm.getAroundDeals();" href="#autour">
+                    <i style="margin: 12px;vertical-align: bottom;" class="material-icons">location_on</i><span
+                        class="hide-on-med-and-down">Autour</span>
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a class="grey-text text-darken-3" ng-click="vm.getMyMooj();" href="#mymooj">
+                    <i style="margin: 12px;vertical-align: bottom;" class="material-icons">home</i><span
+                        class="hide-on-med-and-down">My mooj</span>
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a class="grey-text text-darken-3" ng-click="vm.getDiscoverDeals();" href="#decouvrir">
+                    <i style="margin: 12px;vertical-align: bottom;" class="material-icons">public</i><span
+                        class="hide-on-med-and-down">Découvrir</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div ng-swipe-left="vm.swipeMyMooj();" id="autour"
+         style="margin-top:50px;padding:0;height:calc(100% - 50px)" class="col s12">
+        <around active-pan="vm.activePan" style="height:100%;"></around>
+    </div>
+    <div ng-swipe-right="vm.swipeAround();" ng-swipe-left="vm.swipeDiscover();" id="mymooj" style="margin-top:50px;padding:0;height:calc(100% - 50px)" class="col s12">
+        <deals active-pan="vm.activePan" style="height:100%;"></deals>
+    </div>
+
+    <div ng-swipe-right="vm.swipeMyMooj();" id="decouvrir"
+         style="margin-top:50px;padding:0;height:calc(100% - 50px)" class="col s12">
+        <discover active-pan="vm.activePan" style="height:100%;"></discover>
+    </div>
+
+</div>

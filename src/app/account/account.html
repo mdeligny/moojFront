@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="grey lighten-3 no-margin-top no-border" style="padding:10px 0 0 0;">
+        <div class="row" style="margin:0;">
+            <h4 style="padding:0 10px;">Mes commerçants</h4>
+            <div class="input-field col s12">
+                <input ng-model="vm.q" type="text" placeholder="Rechercher dans la liste ...">
+            </div>
+        </div>
+        <div class="row">
+            <ul class="collection">
+                <li class="collection-item avatar" ng-repeat="merchant in vm.user.following | filter:vm.q"
+                    ng-click="vm.browseMerchant(merchant);">
+                    <img ng-src="{{merchant.imageLink}}" alt="" class="circle">
+                    <span class="title">{{merchant.pseudo}}</span>
+                    <p>{{merchant.adress}} <br>
+                        {{merchant.city}}
+                    </p>
+                    <a ng-href="tel:{{merchant.phone}}" ng-click="$event.stopPropagation();"
+                       class="secondary-content"><i class="material-icons teal-text text-lighten-3">phone</i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

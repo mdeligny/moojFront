@@ -1,0 +1,140 @@
+<div class=" scroller-container container grey lighten-3" style="height:100%;overflow: auto;" hide-on-scroll-down
+     pull-to-refresh refresh-function="$ctrl.refresh()">
+    <div class="city-text center">
+        <h3 class="white-text"
+            style="background: rgba(0,0,0,0.5); margin: 0; padding: 1.46rem 0 1.168rem 0;display: flex; flex-direction: column; justify-content: space-around;">
+            <span style="font-size: 1.3rem;">nos</span>
+            <span style="font-family:'Damion',cursive; font-size:4rem;">commerçants</span></h3>
+    </div>
+    <div ng-show="$ctrl.label.length > 0" class="grey lighten-3 label-filter-container" style="padding:0 10px;">
+        <span class="right black-text" ng-click="$event.stopPropagation();$ctrl.resetLabels();">Voir tous</span>
+        Filtré par: <span ng-repeat="label in $ctrl.label" class="new badge" ng-class="label.color"
+                          ng-click="$event.stopPropagation();$ctrl.removeLabel(label);"
+                          style="position:initial;margin-right:10px;" data-badge-caption="{{label.displayName}}"></span>
+    </div>
+
+    <ul class="no-margin-top no-border">
+        <!-- Demo: orderDate to remove -->
+
+        <li ng-repeat="merchant in $ctrl.merchants" ng-click="$ctrl.browseMerchant(merchant);" class="">
+            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+                <div class="card-content" style="padding:10px;">
+                    <div class="row" style="margin-bottom:0;">
+                        <div class="col s3">
+                            <img ng-src="{{merchant.imageLink}}" alt="" class="responsive-img">
+                        </div>
+                        <div class="col s9">
+                            <div><span ng-repeat="category in merchant.category" class="new badge"
+                                       ng-class="category.color"
+                                       ng-click="$event.stopPropagation();$ctrl.selectLabel(category);"
+                                       style="position:initial;margin-right:10px;"
+                                       data-badge-caption="{{category.displayName}}"></span><br/></div>
+                            <a class="black-text"
+                               ng-href="/merchants/{{merchant._id}}"><b>{{merchant.pseudo}}</b></a><span
+                                class="grey-text"></span><br/>
+                            <p style="margin: 0;">{{merchant.adress}}, {{merchant.city}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end">
+                    <a ng-click="$event.stopPropagation();$ctrl.actionFollow(merchant);" class="btn"
+                       ng-class="merchant.followsAlready ? 'teal lighten-3' : 'grey lighten-1'"
+                       message="{{merchant.followsAlready ? 'Vous ne suivez plus ' + merchant.pseudo : 'Vous suivez désormais ' + merchant.pseudo}}"
+                       duration="3000" toast='click'>
+                        <i class="material-icons left">{{merchant.followsAlready ? 'playlist_add_check' :
+                            'playlist_add'}}</i>{{merchant.followsAlready ? 'Abonné' : 'S\'abonner'}}
+                    </a>
+                </div>
+            </div>
+
+        </li>
+
+    </ul>
+
+    <div class="city-text center">
+        <h3 class="white-text"
+            style="background: rgba(0,0,0,0.5); margin: 0; padding: 1.46rem 0 1.168rem 0;display: flex; flex-direction: column; justify-content: space-around;">
+            <span style="font-size: 1.3rem;">nos listes de</span>
+            <span style="font-family:'Damion',cursive; font-size:4rem;">commerçants</span></h3>
+    </div>
+    <ul class="no-margin-top no-border">
+
+        <li ng-repeat="list in $ctrl.lists">
+            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+                <div class="card-content" style="padding:10px;">
+                    <div class="row" style="margin-bottom:0;">
+                        <div class="col s3">
+                            <img ng-src="{{list.imageLink}}" alt="" class="responsive-img">
+                        </div>
+                        <div class="col s9">
+                            <div class="row">
+                                <a class="black-text"
+                                   ng-href="/merchants/{{merchant._id}}"><b>{{list.name}}</b></a><br/>
+                                <span class="grey-text">{{list.city}}</span>
+                                <p style="margin: 0;">{{list.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:0;">
+                        <div class="col s12" style="padding:0;">
+                            <div style="width:100%;overflow: hidden;height:160px;white-space: nowrap;"
+                                 ng-swipe-left="$event.stopPropagation();$ctrl.swipeLeft(list);"
+                                 ng-swipe-right="$event.stopPropagation();$ctrl.swipeRight(list);">
+                                <div class="swiper-lists" style="position:relative;"
+                                     ng-style="{ 'left' : list.left + 'px'}">
+                                    <div ng-if="$index < 5"
+                                         ng-repeat="merchant in list.merchants"
+                                         style="display:inline-block;width:100px;margin:0 10px;vertical-align: top;"
+                                         ng-click="$ctrl.browseMerchant(merchant);">
+                                        <div class="card small" style="height:140px;">
+                                            <div class="card-image" style="height:50%">
+                                                <img ng-src="{{merchant.imageLink}}"/>
+                                            </div>
+                                            <div class="card-content" style="padding:10px;">
+                                                <p style="white-space: initial;">{{merchant.pseudo}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline-block;width:100px;margin:0 10px;vertical-align: top;"
+                                         ng-click="$ctrl.followList(list);">
+                                        <div class="card small" style="height:140px;">
+                                            <div class="card-image" style="height:50%">
+                                                <img ng-src="{{merchant.imageLink}}" style="height:100%;"/>
+                                            </div>
+                                            <div class="card-content" style="padding:10px;">
+                                                <p style="white-space: initial;">Ajouter la liste à mes commerçants</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end">
+                    Voir plus
+                </div>
+            </div>
+        </li>
+
+        <li ng-if="$ctrl.merchants.length === 0" class="collection-item">
+            Malheureusement, il n'y a aucun commerçant à découvrir ...
+        </li>
+    </ul>
+
+    <div ng-class="$ctrl.isLoading ? 'active' : ''" class="white circle z-depth-2 mj-loader-wrapper">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer ">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

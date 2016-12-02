@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>mooj</title>
+    <meta name="description" content="">
+    <meta name="robots" content="noodp">
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="img/mooj_logo.jpg" />
+    <link rel="apple-touch-icon" href="img/mooj_logo.jpg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Damion" rel="stylesheet">
+
+    <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+    <meta name="theme-color" content="#00897b">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#00897b">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#00897b">
+
+    <!-- build:css({.tmp,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp,src}) styles/app.css -->
+    <!-- inject:css -->
+    <!-- css files will be automatically insert here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+
+
+  <body ng-app="app" class="grey darken-4">
+  <mooj-loader></mooj-loader>
+  <mooj-notif></mooj-notif>
+
+  <mooj-header></mooj-header>
+
+    <ui-view class="height-100"></ui-view>
+
+    <!--<mooj-footer></mooj-footer>-->
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyC0NG1mGANovrnoM4Xx40ujcpal_kkPhrM&callback"></script>
+
+  </body>
+
+
+  <!-- build:js({.tmp,src}) scripts/vendor.js -->
+  <!-- bower:js -->
+  <!-- run `gulp inject` to automatically populate bower script dependencies -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,src}) scripts/app.js -->
+  <!-- inject:js -->
+  <!-- js files will be automatically insert here -->
+  <!-- endinject -->
+  <!-- inject:partials -->
+  <!-- angular templates will be automatically converted in js and inserted here -->
+  <!-- endinject -->
+  <!-- endbuild -->
+</html>
+
