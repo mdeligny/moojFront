@@ -30,12 +30,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="deal.externalLinks.length > 0 || deal.actions.call">
+                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="deal.externalLinks.length > 0 || deal.actions.call || deal.actions.sms">
                     <a ng-repeat="action in deal.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
                         <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
                         <span ng-if="!action.code">{{action.name}}</span>
                     </a>
                     <a ng-if="deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
+                    <a ng-if="deal.actions.sms" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="sms:{{deal.merchant.phone}}" ><i class="material-icons left">textsms</i>SMS</a>
                 </div>
             </div>
 
