@@ -12,9 +12,10 @@ before_script:
   - npm install -g gulp-cli
   - bower install
 script:
-  - ls .tmp
   - gulp
+  - ls
   - ls .tmp
+  - cat dist/index.html
 after_success:
     gulp deploy --user $FTP_USER --password $FTP_PASSWORD
 notifications:
