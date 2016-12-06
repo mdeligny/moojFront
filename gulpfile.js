@@ -49,7 +49,6 @@ function deploy(done) {
     'scripts/**',
     'styles/**',
     'index.html',
-    '../.dist/**/**.*'
     //conf.path.dist('fonts/**'),
     //conf.path.dist('img/**'),
     //conf.path.dist('maps/**'),
