@@ -25,7 +25,6 @@ function DealsController($rootScope, $state, $q, filterService, dealsService) {
       .then(function (deals) {
         vm.deals = deals;
         vm.isLoading = false;
-
       });
   };
 
@@ -49,8 +48,7 @@ function DealsController($rootScope, $state, $q, filterService, dealsService) {
   vm.browseMerchant = function (merchant) {
     if ($rootScope.swiping) {
       $rootScope.swiping = false;
-    }
-    else {
+    } else {
       $state.go('merchants', {id: merchant._id});
       $rootScope.activePan = merchant.pseudo;
     }
@@ -71,7 +69,5 @@ function DealsController($rootScope, $state, $q, filterService, dealsService) {
         deferred.resolve(true);
       });
     return deferred.promise;
-
   };
-
 }

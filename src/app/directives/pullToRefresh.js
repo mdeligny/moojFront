@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('app')
-
   .directive('pullToRefresh', function ($timeout) {
     return {
       restrict: 'A',
@@ -25,7 +24,6 @@ angular.module('app')
         refreshFunction: '&' // This function is expected to return a future
       },
       link: function postLink(scope, element, attrs) {
-
         scope.hasCallback = angular.isDefined(attrs.refreshFunction);
         scope.isAtTop = false;
         scope.pullToRefreshActive = false;
@@ -44,21 +42,18 @@ angular.module('app')
                 .then(function () {
                   scope.pullToRefreshActive = false;
                 })
-                .finally(function() {
+                .finally(function () {
                   workingPromise = null;
                 });
             }
             scope.$digest();
           }
-
         };
 
         // Wait 1 second and then add an event listener to the scroll events on this list- this enables pull to refresh functionality
         $timeout(function () {
           var onScroll = function (event) {
-
             if (element[0].scrollTop <= 0 && scope.lastScrollTop <= 0) {
-
               if (event.touches) {
                 if (!lastY) {
                   lastY = event.touches[0].screenY;
@@ -73,8 +68,7 @@ angular.module('app')
                     toTop = 150;
                   }
                   scope.toTop = toTop + 'px';
-                }
-                else {
+                } else {
                   scope.pullToRefreshActive = false;
 
                   toTop = 30;
@@ -83,18 +77,16 @@ angular.module('app')
 
                 lastY = event.touches[0].screenY;
                 scope.$apply();
-
               }
 
-              //uncomment this line for desktop testing
-              //if (element[0].scrollTop <= 0) {
+              // uncomment this line for desktop testing
+              // if (element[0].scrollTop <= 0) {
               if (scope.isAtTop && toTop >= 150) {
                 scope.pullToRefresh();
               } else {
                 scope.isAtTop = true;
               }
-            }
-            else {
+            } else {
               scope.pullToRefreshActive = false;
             }
             scope.lastScrollTop = element[0].scrollTop;
@@ -102,8 +94,6 @@ angular.module('app')
           element[0].addEventListener('scroll', onScroll);
           element[0].addEventListener('touchmove', onScroll);
         }, 1000);
-
-
       }
     };
   });

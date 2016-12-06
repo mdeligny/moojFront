@@ -4,14 +4,11 @@
  */
 
 angular.module('app')
-
   .controller('notifCtrl', function ($scope, $timeout) {
-
     var vm = this;
     vm.showNotification = false;
 
     $scope.$on('notify', function (event, notification) {
-
       vm.title = notification.title;
       vm.body = notification.body;
       vm.type = notification.type;
@@ -21,8 +18,6 @@ angular.module('app')
         vm.showNotification = false;
       }, 3000);
     });
-
-
   })
 
   .directive('moojNotif', function () {

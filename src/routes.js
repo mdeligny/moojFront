@@ -44,5 +44,4 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'accountCtrl',
       controllerAs: 'vm'
     });
-
 }

@@ -10,11 +10,11 @@ function HeaderController($rootScope, $scope, $http, filterService) {
   var vm = this;
   vm.showMenu = true;
 
-  $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+  $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     vm.previousState = from.url;
     vm.isHomePage = to.url === '/';
-    if(!vm.isHomePage) {
+    if (!vm.isHomePage) {
       vm.showMenu = true;
     }
   });
@@ -35,24 +35,20 @@ function HeaderController($rootScope, $scope, $http, filterService) {
 
   $http.get('https://mooj.herokuapp.com/macrocategories')
     .then(function (response) {
-
       vm.categories = response.data;
     });
 
   vm.setFilter = function (category) {
-
     var labels = category.categories.map(function (label) {
       return label._id;
     });
 
     if (category.isActive) {
       filterService.removeCategory(labels.join());
-    }
-    else {
+    } else {
       filterService.addCategory(labels.join());
     }
     category.isActive = !category.isActive || false;
-
   };
 
   vm.resetFilter = function () {
@@ -72,15 +68,16 @@ function HeaderController($rootScope, $scope, $http, filterService) {
   var getActiveLabels = function () {
     activeLabels = filterService.getLabel();
 
-    angular.forEach(vm.categories, function (category) {
-      angular.forEach(category.categories, function (label) {
-
-        label.isActive = _.filter(activeLabels, function (activeLabel) {
-            return activeLabel._id === label._id;
-          }).length !== 0;
-
+    angular.forEach(vm.categories,
+      function (category) {
+        angular.forEach(category.categories,
+          function (label) {
+            label.isActive = _.filter(activeLabels,
+                function (activeLabel) {
+                  return activeLabel._id === label._id;
+                }).length !== 0;
+          });
       });
-    });
   };
 
   filterService.addListener(getActiveLabels);
@@ -89,11 +86,9 @@ function HeaderController($rootScope, $scope, $http, filterService) {
     if (label.isActive) {
       activeLabels = [];
       filterService.removeLabel(label);
-    }
-    else {
+    } else {
       activeLabels = [label];
       filterService.setLabel(label);
     }
-
   };
 }

@@ -2,9 +2,8 @@
 
 angular.module('app')
   .service('localUserService', function ($rootScope, $http, $q, $window) {
-
     var user = null;
-    var moojLocalId = $window.localStorage['moojLocalId'];
+    var moojLocalId = $window.localStorage.moojLocalId;
 
     function createUser(following) {
       return $http
@@ -12,7 +11,7 @@ angular.module('app')
           following: following || []
         })
         .then(function (response) {
-          $window.localStorage['moojLocalId'] = response.data._id;
+          $window.localStorage.moojLocalId = response.data._id;
           user = response.data;
           return user;
         });
@@ -41,28 +40,29 @@ angular.module('app')
     }
 
     this.getUser = function () {
+      var resolve;
+
       if (user) {
-        return $q.resolve(user);
+        resolve = $q.resolve(user);
+      } else if (moojLocalId) {
+        resolve = getUser(moojLocalId);
+      } else {
+        resolve = createUser();
       }
-      else if (moojLocalId) {
-        return getUser(moojLocalId);
-      }
-      else {
-        return createUser();
-      }
+
+      return resolve;
     };
 
     this.followMerchant = function (merchant) {
       var promise;
 
-      if (!user) {
-        promise = createUser([merchant._id]);
-      }
-      else {
+      if (user) {
         var following = user.following;
         following.push(merchant._id);
 
         promise = updateUser(following);
+      } else {
+        promise = createUser([merchant._id]);
       }
 
       return promise;
@@ -74,10 +74,7 @@ angular.module('app')
         return item._id;
       });
 
-      if (!user) {
-        promise = createUser(listIds);
-      }
-      else {
+      if (user) {
         var following = user.following;
 
         console.log(following);
@@ -88,13 +85,14 @@ angular.module('app')
         console.log(merchants);
 
         promise = updateUser(merchants);
+      } else {
+        promise = createUser(listIds);
       }
 
       return promise;
     };
 
     this.unfollowMerchant = function (merchant) {
-
       var nowFollowing = _.filter(user.following, function (following) {
         return following._id !== merchant._id;
       });
@@ -112,5 +110,4 @@ angular.module('app')
           return user;
         });
     };
-
   });

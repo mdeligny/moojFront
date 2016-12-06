@@ -9,7 +9,7 @@ angular
     vm.followMerchant = function (merchant) {
       localUserService
         .followMerchant(merchant)
-        .then(function (response) {
+        .then(function () {
           vm.merchant.followers.totalCount++;
           vm.merchant.followsAlready = true;
         });
@@ -18,7 +18,7 @@ angular
     vm.unfollowMerchant = function (merchant) {
       localUserService
         .unfollowMerchant(merchant)
-        .then(function (response) {
+        .then(function () {
           vm.merchant.followers.totalCount--;
           vm.merchant.followsAlready = false;
         });
@@ -27,7 +27,6 @@ angular
     $http
       .get('https://mooj.herokuapp.com/merchants/' + $stateParams.id + '/deals?limit=5')
       .then(function (response) {
-
         var now = new Date();
         var deals = [];
 
@@ -58,7 +57,6 @@ angular
           deal.orderDate = (diff.hour < 10 ? '0' + diff.hour : diff.hour) + '' + (diff.min < 10 ? '0' + diff.min : diff.min);
 
           deals.push(deal);
-
         });
 
         // Demo fix : remove duplicates for date conflict purpos
@@ -88,8 +86,6 @@ angular
 
           $scope.$apply();
           vm.isLoadingMap = false;
-
         });
       });
-
   });

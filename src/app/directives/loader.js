@@ -21,7 +21,6 @@ angular.module('app')
     $scope.$on('loaded', function () {
       resetLoader();
     });
-
   })
 
   .directive('moojLoader', function () {

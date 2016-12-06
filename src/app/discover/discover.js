@@ -9,11 +9,10 @@ angular
   });
 
 /** @ngInject */
-function DiscoverController($state, $rootScope, $scope, $q, $http, localUserService, filterService, merchantsService) {
+function DiscoverController($state, $rootScope, $q, $http, localUserService, filterService, merchantsService) {
   var vm = this;
 
   var init = function () {
-
     vm.lists = [];
     vm.isLoading = true;
 
@@ -26,28 +25,27 @@ function DiscoverController($state, $rootScope, $scope, $q, $http, localUserServ
           data.left = -10;
           vm.lists.push(data);
         });
-
       });
 
     merchantsService.getMerchants(query)
       .then(function (merchants) {
         vm.merchants = merchants;
 
-        localUserService.getUser().then(function (user) {
+        localUserService.getUser()
+          .then(function (user) {
+            vm.merchants.forEach(function (merchant) {
+              if (merchant.followers) {
+                merchant.followers.value.forEach(
+                  function (follower) {
+                    if (follower._id === user._id) {
+                      merchant.followsAlready = true;
+                    }
+                  });
+              }
+            });
 
-          vm.merchants.forEach(function (merchant) {
-            if (merchant.followers) {
-              merchant.followers.value.forEach(function (follower) {
-
-                if (follower._id === user._id) {
-                  merchant.followsAlready = true;
-                }
-              });
-            }
+            vm.isLoading = false;
           });
-
-          vm.isLoading = false;
-        });
       });
   };
 
@@ -85,59 +83,52 @@ function DiscoverController($state, $rootScope, $scope, $q, $http, localUserServ
       .then(function (merchants) {
         vm.merchants = merchants;
 
-        localUserService.getUser().then(function (user) {
+        localUserService.getUser()
+          .then(function (user) {
+            vm.merchants.forEach(function (merchant) {
+              if (merchant.followers) {
+                merchant.followers.value.forEach(
+                  function (follower) {
+                    if (follower._id === user._id) {
+                      merchant.followsAlready = true;
+                    }
+                  });
+              }
+            });
 
-          vm.merchants.forEach(function (merchant) {
-            if (merchant.followers) {
-              merchant.followers.value.forEach(function (follower) {
-
-                if (follower._id === user._id) {
-                  merchant.followsAlready = true;
-                }
-              });
-            }
+            deferred.resolve(true);
           });
-
-          deferred.resolve(true);
-        });
-
       });
     return deferred.promise;
-
   };
 
   vm.actionFollow = function (merchant) {
     if (merchant.followsAlready) {
       vm.unfollowMerchant(merchant);
-    }
-    else {
+    } else {
       vm.followMerchant(merchant);
     }
   };
 
   vm.followMerchant = function (merchant) {
-
     localUserService
       .followMerchant(merchant)
-      .then(function (response) {
+      .then(function () {
         merchant.followers.totalCount++;
         merchant.followsAlready = true;
       });
   };
 
   vm.unfollowMerchant = function (merchant) {
-
     localUserService
       .unfollowMerchant(merchant)
-      .then(function (response) {
+      .then(function () {
         merchant.followers.totalCount--;
         merchant.followsAlready = false;
       });
   };
 
   vm.followList = function (list) {
-    console.log(list);
-
     localUserService
       .followList(list)
       .then(function (response) {
@@ -148,8 +139,7 @@ function DiscoverController($state, $rootScope, $scope, $q, $http, localUserServ
   vm.browseMerchant = function (merchant) {
     if ($rootScope.swiping) {
       $rootScope.swiping = false;
-    }
-    else {
+    } else {
       $state.go('merchants', {id: merchant._id});
       $rootScope.activePan = merchant.pseudo;
     }
@@ -168,5 +158,5 @@ function DiscoverController($state, $rootScope, $scope, $q, $http, localUserServ
       list.left = -370;
     }
   };
-
 }
+

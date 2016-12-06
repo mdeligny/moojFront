@@ -2,7 +2,6 @@
 
 angular.module('app')
   .service('filterService', function () {
-
     var filter = {
       categories: [],
       labels: []
@@ -43,7 +42,7 @@ angular.module('app')
       notifyListeners();
     };
 
-    this.removeLabel = function (label) {
+    this.removeLabel = function () {
       filter.labels = [];
       notifyListeners();
     };
@@ -79,9 +78,7 @@ angular.module('app')
         }
 
         query = 'category=' + categories.join();
-
       }
       return query;
-    }
-
+    };
   });

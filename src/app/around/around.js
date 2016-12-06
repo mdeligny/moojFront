@@ -14,7 +14,8 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
 
   var init = function () {
     vm.isLoading = true;
-    navigator.geolocation.getCurrentPosition(function (location) {
+    navigator.geolocation.getCurrentPosition(
+      function (location) {
         var lat = location.coords.latitude;
         var lng = location.coords.longitude;
 
@@ -37,8 +38,7 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
   vm.browseMerchant = function (merchant) {
     if ($rootScope.swiping) {
       $rootScope.swiping = false;
-    }
-    else {
+    } else {
       $rootScope.activePan = merchant.pseudo;
       $state.go('merchants', {id: merchant._id});
     }
@@ -58,7 +58,8 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
   vm.refresh = function () {
     var deferred = $q.defer();
 
-    navigator.geolocation.getCurrentPosition(function (location) {
+    navigator.geolocation.getCurrentPosition(
+      function (location) {
         var lat = location.coords.latitude;
         var lng = location.coords.longitude;
 
@@ -76,7 +77,6 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
       }
     );
     return deferred.promise;
-
   };
 
   vm.changeCity = function (cityName) {
@@ -95,14 +95,12 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
             .then(function (deals) {
               vm.deals = deals;
             });
-        }
-        else {
+        } else {
           vm.editCity = true;
           vm.deals = [];
         }
       });
   };
-
 
   vm.selectLabel = function (label) {
     filterService.setLabel(label);
@@ -117,6 +115,4 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
       filterService.removeLabel(label);
     });
   };
-
-
 }

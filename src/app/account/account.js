@@ -16,7 +16,5 @@ angular
     vm.browseMerchant = function (merchant) {
       $rootScope.activePan = merchant.pseudo;
       $state.go('merchants', {id: merchant._id});
-
     };
-
   });

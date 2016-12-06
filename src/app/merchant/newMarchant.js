@@ -6,18 +6,15 @@ angular
 
     $rootScope.activePan = 'Nouveau commerçant';
 
-
     $http.get('https://mooj.herokuapp.com/categories').then(function (response) {
       vm.categories = response.data;
     });
 
     $scope.$watch('vm.imagesForm', function (element) {
       if (element !== undefined) {
-
         angular.forEach(vm.imagesForm, function (file) {
           newImages.push(file);
         });
-
       }
     });
 
@@ -49,17 +46,14 @@ angular
         }, function () {
           return '';
         });
-      }
-      else {
+      } else {
         uploadPromise = $q.resolve('');
       }
 
       uploadPromise
         .then(function (imageLink) {
-
           localizeUser()
             .then(function (coordonnes) {
-
               var merchant = {};
 
               merchant.name = vm.newMerchant.name;
@@ -96,7 +90,6 @@ angular
                     title: 'Succès',
                     body: 'Commerçant ajouté'
                   });
-
                 }, function (err) {
                   $rootScope.$broadcast('loaded');
 
@@ -107,14 +100,12 @@ angular
 
               errorsService.fireError(err);
             });
-
         }, function (err) {
           $rootScope.$broadcast('loaded');
 
           errorsService.fireError(err);
         });
-    }
-
+    };
   })
   .directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -124,7 +115,6 @@ angular
         var modelSetter = model.assign;
 
         element.bind('change', function () {
-
           scope.$apply(function () {
             modelSetter(scope, element[0].files);
           });
@@ -132,4 +122,3 @@ angular
       }
     };
   }]);
-

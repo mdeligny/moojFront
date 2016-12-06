@@ -2,13 +2,10 @@
 
 angular.module('app')
   .service('dealsService', function ($rootScope, $http, localUserService) {
-
     this.getDeals = function (query) {
-
       return $http
         .get('https://mooj.herokuapp.com/deals?' + query)
         .then(function (response) {
-
           var now = new Date();
           var deals = [];
 
@@ -33,7 +30,6 @@ angular.module('app')
 
             deal.date = (diff.hour >= 1 ? diff.hour + 'h ' : '') + diff.min + 'mn';
 
-
             /*
              * Demo fix : orderDate to push also old news
              * */
@@ -42,27 +38,22 @@ angular.module('app')
             if ((diff.day <= 1 && now.getDay() === dealTime.getDay()) || (diff.day < 1 && now.getDay() > dealTime.getDay())) {
               deals.push(deal);
             }
-
           });
 
           // Demo fix : remove duplicates for date conflict purpose
           return deals;
-
         });
     };
 
     this.getMyMooj = function (query) {
-
       return localUserService.getUser()
         .then(function (user) {
           return user._id;
         })
         .then(function (userId) {
-
           return $http
             .get('https://mooj.herokuapp.com/users/' + userId + '/deals?' + query)
             .then(function (response) {
-
               var now = new Date();
               var deals = [];
 
@@ -95,13 +86,10 @@ angular.module('app')
                 if ((diff.day <= 1 && now.getDay() === dealTime.getDay()) || (diff.day < 1 && now.getDay() > dealTime.getDay())) {
                   deals.push(deal);
                 }
-
               });
-
-              return deals
-
+              return deals;
             });
         });
     };
-
   });
+

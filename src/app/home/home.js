@@ -1,7 +1,6 @@
 angular
   .module('app')
   .controller('homeCtrl', function ($rootScope, $scope, $http, $timeout) {
-
     Smooch.init({
       appToken: '4zv6lhj9ne5zdfrw9egxputmz',
       customText: {
@@ -68,7 +67,7 @@ angular
     };
 
     var previousScroll = 0;
-    angular.element('window').scroll(function (event) {
+    angular.element('window').scroll(function () {
       var scroll = $(this).scrollTop();
       if (scroll > previousScroll) {
         // downscroll code
@@ -89,5 +88,4 @@ angular
         vm.swipeAround();
         break;
     }
-
   });

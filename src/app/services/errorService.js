@@ -2,7 +2,6 @@
 
 angular.module('app')
   .service('errorsService', function ($rootScope, $timeout, $window) {
-
     this.fireError = function (response) {
       if (response.status === -1) {
         $rootScope.$broadcast('loaded');
@@ -11,17 +10,16 @@ angular.module('app')
           body: 'Please check your internet connection',
           type: 'error'
         });
-      }
-      else if(response.status !== 401){
+      } else if (response.status !== 401) {
         $rootScope.$broadcast('notify', {
           title: 'Error' + response.status,
           body: response.statusText,
-          type: 'error'});
+          type: 'error'
+        });
 
         $timeout(function () {
           $window.open('#/', '_self');
-        }, 2000)
+        }, 2000);
       }
     };
-
   });

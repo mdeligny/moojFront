@@ -20,5 +20,4 @@ angular
         givenName: vm.user.name
       });
     };
-
   });
