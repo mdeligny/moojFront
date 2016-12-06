@@ -15,3 +15,5 @@ script:
   - gulp default
 after_success:
     gulp deploy --user $FTP_USER --password $FTP_PASSWORD
+notifications:
+  slack: moojteam:mASYjUKI07oKue54z5YTrJPQ
