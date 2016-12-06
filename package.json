@@ -63,10 +63,7 @@
         {
           "boolean": true,
           "number": true,
-          "string": false,
-          "allow": [
-            /* "!!", "~", "*", "+" */
-          ]
+          "string": false
         }
       ]
     },
