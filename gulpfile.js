@@ -16,12 +16,19 @@ var args = minimist(process.argv.slice(2));
 gulp.registry(hub);
 
 gulp.task('inject2', gulp.series(gulp.parallel('styles', 'scripts'), 'other', 'inject'));
-gulp.task('prod', gulp.series('partials', 'inject2', 'build'));
+
+gulp.task('prod', gulp.series('partials', 'inject', 'build'));
+
 gulp.task('test', gulp.series('scripts', 'karma:single-run'));
 gulp.task('test:auto', gulp.series('watch', 'karma:auto-run'));
+
 gulp.task('serve', gulp.series('inject2', 'watch', 'browsersync'));
 gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
+
+
 gulp.task('default', gulp.series('clean', 'prod'));
+
+
 gulp.task('watch', watch);
 
 gulp.task('deploy', gulp.series(deploy));
