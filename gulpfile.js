@@ -27,7 +27,7 @@ gulp.task('watch', watch);
 gulp.task('deploy', gulp.series(deploy));
 
 function deploy(done) {
-  var remotePath = '/mooj/';
+  var remotePath = '/mooj';
   var conn = ftp.create({
     host: 'ftp.cluster015.ovh.net',
     user: args.user,
@@ -36,16 +36,22 @@ function deploy(done) {
   });
 
   var globs = [
-    conf.path.dist('fonts/**'),
-    conf.path.dist('img/**'),
-    conf.path.dist('maps/**'),
-    conf.path.dist('scripts/**'),
-    conf.path.dist('styles/**'),
-    conf.path.dist('index.html')
+    'fonts/**',
+    'img/**',
+    'maps/**',
+    'scripts/**',
+    'styles/**',
+    'index.html',
+    //conf.path.dist('fonts/**'),
+    //conf.path.dist('img/**'),
+    //conf.path.dist('maps/**'),
+    //conf.path.dist('scripts/**'),
+    //conf.path.dist('styles/**'),
+    //conf.path.dist('index.html')
   ];
 
-  gulp.src(globs, { buffer: false })
-//    .pipe(conn.newer(remotePath))
+  gulp.src(globs, {cwd: 'dist', base: 'dist', buffer: false})
+    //    .pipe(conn.newer(remotePath))
     .pipe(conn.dest(remotePath));
   done();
 }
