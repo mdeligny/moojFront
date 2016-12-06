@@ -7,6 +7,11 @@ const conf = require('./conf/gulp.conf');
 // Load some files into the registry
 const hub = new HubRegistry([conf.path.tasks('*.js')]);
 
+var ftp = require('vinyl-ftp');
+var gutil = require('gulp-util');
+var minimist = require('minimist');
+var args = minimist(process.argv.slice(2));
+
 // Tell gulp to use the tasks just loaded
 gulp.registry(hub);
 
@@ -18,6 +23,19 @@ gulp.task('serve', gulp.series('inject', 'watch', 'browsersync'));
 gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
 gulp.task('default', gulp.series('clean', 'build'));
 gulp.task('watch', watch);
+
+gulp.task('deploy', function() {
+  var remotePath = '/mooj/';
+  var conn = ftp.create({
+    host: 'ftp.cluster015.ovh.net',
+    user: args.user,
+    password: args.password,
+    log: gutil.log
+  });
+  gulp.src(['./dist/*.*'])
+    .pipe(conn.newer(remotePath))
+    .pipe(conn.dest(remotePath));
+});
 
 function reloadBrowserSync(cb) {
   browserSync.reload();

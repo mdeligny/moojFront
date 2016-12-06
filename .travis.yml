@@ -14,4 +14,4 @@ before_script:
 script:
   - gulp default
 after_success:
-    "curl -T dist/index.html -u $FTP_USER:$FTP_PASSWORD ftp.cluster015.ovh.net/mooj/test/"
+    gulp deploy --user $FTP_USER --password $FTP_PASSWORD
