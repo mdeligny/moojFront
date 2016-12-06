@@ -53,9 +53,29 @@
     "inject": "gulp inject"
   },
   "eslintConfig": {
+    "rules": {
+      "operator-assignment": [
+        2,
+        "never"
+      ],
+      "no-implicit-coercion": [
+        2,
+        {
+          "boolean": true,
+          "number": true,
+          "string": false,
+          "allow": [
+            /* "!!", "~", "*", "+" */
+          ]
+        }
+      ]
+    },
     "globals": {
       "expect": true,
-      "angular": true
+      "angular": true,
+      "_": false,
+      "Smooch": false,
+      "$": false
     },
     "root": true,
     "env": {

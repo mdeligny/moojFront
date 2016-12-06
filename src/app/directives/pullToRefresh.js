@@ -63,7 +63,7 @@ angular.module('app')
                   event.preventDefault();
                   scope.pullToRefreshActive = true;
 
-                  toTop += 10;
+                  toTop = toTop + 10;
                   if (toTop >= 150) {
                     toTop = 150;
                   }
