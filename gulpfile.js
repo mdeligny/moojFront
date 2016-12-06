@@ -24,7 +24,9 @@ gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
 gulp.task('default', gulp.series('clean', 'build'));
 gulp.task('watch', watch);
 
-gulp.task('deploy', function() {
+gulp.task('deploy', gulp.series(deploy));
+
+function deploy(done) {
   var remotePath = '/mooj/';
   var conn = ftp.create({
     host: 'ftp.cluster015.ovh.net',
@@ -32,10 +34,21 @@ gulp.task('deploy', function() {
     password: args.password,
     log: gutil.log
   });
-  gulp.src(['./dist/**/*.*'])
-    .pipe(conn.newer(remotePath))
+
+  var globs = [
+    conf.path.dist('fonts/**'),
+    conf.path.dist('img/**'),
+    conf.path.dist('maps/**'),
+    conf.path.dist('scripts/**'),
+    conf.path.dist('styles/**'),
+    conf.path.dist('index.html')
+  ];
+
+  gulp.src(globs, { buffer: false })
+//    .pipe(conn.newer(remotePath))
     .pipe(conn.dest(remotePath));
-});
+  done();
+}
 
 function reloadBrowserSync(cb) {
   browserSync.reload();
