@@ -11,8 +11,9 @@ before_script:
   - npm install -g gulp
   - npm install -g gulp-cli
   - bower install
+  - gulp -v
 script:
-  - gulp default
+  - gulp
 after_success:
     gulp deploy --user $FTP_USER --password $FTP_PASSWORD
 notifications:
