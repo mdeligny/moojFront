@@ -17,7 +17,7 @@ gulp.registry(hub);
 
 gulp.task('inject2', gulp.series(gulp.parallel('styles', 'scripts'), 'other', 'inject'));
 
-gulp.task('prod', gulp.series('partials', 'inject', 'build'));
+gulp.task('prod', gulp.series('partials', 'inject2', 'build'));
 
 gulp.task('test', gulp.series('scripts', 'karma:single-run'));
 gulp.task('test:auto', gulp.series('watch', 'karma:auto-run'));
@@ -49,6 +49,7 @@ function deploy(done) {
     'scripts/**',
     'styles/**',
     'index.html',
+    '../.dist/**/**.*'
     //conf.path.dist('fonts/**'),
     //conf.path.dist('img/**'),
     //conf.path.dist('maps/**'),
