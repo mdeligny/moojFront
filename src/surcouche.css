@@ -74,6 +74,8 @@ div.label-filter-container .span {
 
 span.badge {
     padding: 3px 8px;
+    margin-left:0;
+    float:none;
 }
 
 .side-nav {
@@ -109,7 +111,7 @@ span.badge {
     background-size: cover;
 }
 
-.btn, .btn-large, .btn-flat{
+.btn, .btn-large, .btn-flat {
     text-transform: none;
 }
 
@@ -119,35 +121,31 @@ span.badge {
 }
 
 .navbar-fixed.hideable-on-scroll.scroll-pinned {
-    display:block;
+    display: block;
     transform: translateY(0%);
 
 }
 
 .navbar-fixed.hideable-on-scroll.scroll-unpinned {
-    display:none;
+    display: none;
     transform: translateY(-100%);
 }
 
 .swiper-lists {
-    transition:all 100ms linear;
+    transition: all 100ms linear;
 }
 
-
 @media only screen and (min-width: 600px) {
-    ::-webkit-scrollbar-track
-    {
+    ::-webkit-scrollbar-track {
         background-color: #F5F5F5;
     }
 
-    ::-webkit-scrollbar
-    {
+    ::-webkit-scrollbar {
         width: 12px;
         background-color: #F5F5F5;
     }
 
-    ::-webkit-scrollbar-thumb
-    {
+    ::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: lightgray;
     }
