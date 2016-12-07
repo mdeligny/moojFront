@@ -15,6 +15,9 @@ script:
   - gulp
 after_success:
     gulp deploy --user $FTP_USER --password $FTP_PASSWORD
+cache:
+  directories:
+    - node_modules
 notifications:
   slack: moojteam:mASYjUKI07oKue54z5YTrJPQ
   email: false
