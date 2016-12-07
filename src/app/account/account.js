@@ -6,7 +6,7 @@ angular
       name: ''
     };
 
-    $rootScope.activePan = 'Mon compte';
+    $rootScope.activePan = 'Mes commerçants';
 
     localUserService.getUser()
       .then(function (user) {
