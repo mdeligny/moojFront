@@ -3,7 +3,8 @@ angular
   .config(routesConfig);
 
 /** @ngInject */
-function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+function routesConfig($stateProvider, $urlRouterProvider, $locationProvider, $compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|tel|mailto|sms):/);
   $locationProvider.html5Mode(true).hashPrefix('!');
   $urlRouterProvider.otherwise('/');
 
