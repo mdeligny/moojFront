@@ -4,7 +4,8 @@ angular.module('app')
   .service('filterService', function () {
     var filter = {
       categories: [],
-      labels: []
+      labels: [],
+      location: ''
     };
     var callBacks = [];
 
@@ -49,6 +50,14 @@ angular.module('app')
 
     this.getLabel = function () {
       return filter.labels;
+    };
+
+    this.setLocation = function (location) {
+      filter.location = location;
+    };
+
+    this.getLocation = function () {
+      return filter.location;
     };
 
     this.resetFilter = function () {

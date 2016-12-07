@@ -17,36 +17,7 @@
         <!-- Demo: orderDate to remove -->
 
         <li ng-repeat="merchant in $ctrl.merchants" ng-click="$ctrl.browseMerchant(merchant);" class="">
-            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
-                <div class="card-content" style="padding:10px;">
-                    <div class="row" style="margin-bottom:0;">
-                        <div class="col s3">
-                            <img ng-src="{{merchant.imageLink}}" alt="" class="responsive-img">
-                        </div>
-                        <div class="col s9">
-                            <div><span ng-repeat="category in merchant.category" class="new badge"
-                                       ng-class="category.color"
-                                       ng-click="$event.stopPropagation();$ctrl.selectLabel(category);"
-                                       style="position:initial;margin-right:10px;"
-                                       data-badge-caption="{{category.displayName}}"></span><br/></div>
-                            <a class="black-text"
-                               ng-href="/merchants/{{merchant._id}}"><b>{{merchant.pseudo}}</b></a><span
-                                class="grey-text"></span><br/>
-                            <p style="margin: 0;">{{merchant.adress}}, {{merchant.city}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end">
-                    <a ng-click="$event.stopPropagation();$ctrl.actionFollow(merchant);" class="btn"
-                       ng-class="merchant.followsAlready ? 'teal lighten-3' : 'grey lighten-1'"
-                       message="{{merchant.followsAlready ? 'Vous ne suivez plus ' + merchant.pseudo : 'Vous suivez désormais ' + merchant.pseudo}}"
-                       duration="3000" toast='click'>
-                        <i class="material-icons left">{{merchant.followsAlready ? 'playlist_add_check' :
-                            'playlist_add'}}</i>{{merchant.followsAlready ? 'Abonné' : 'S\'abonner'}}
-                    </a>
-                </div>
-            </div>
-
+            <merchant-card merchant="merchant"></merchant-card>
         </li>
 
     </ul>

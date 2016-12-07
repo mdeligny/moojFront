@@ -1,0 +1,23 @@
+<div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+    <div class="card-content" style="padding:10px;">
+        <div class="row" style="margin-bottom:0;">
+            <div class="col s3">
+                <img ng-src="{{vm.deal.merchant.imageLink}}" alt="" class="responsive-img">
+            </div>
+            <div class="col s9">
+                <div><span ng-repeat="category in vm.deal.merchant.category" class="new badge" ng-class="category.color" ng-click="$event.stopPropagation();vm.selectLabel(category);" style="position:initial;margin-right:10px;" data-badge-caption="{{category.displayName}}"></span><br/></div>
+                <a class="black-text" ng-href="/merchants/{{vm.deal.merchant._id}}"><b>{{vm.deal.merchant.pseudo}}</b></a><br/>
+                <span class="grey-text"> {{vm.deal.route.distance.text}}</span> - <span class="grey-text"> {{vm.deal.time.valueText}}</span><br/>
+                <p style="margin: 0;">{{vm.deal.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="vm.deal.externalLinks.length > 0 || vm.deal.actions.call || vm.deal.actions.sms">
+        <a ng-repeat="action in vm.deal.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
+            <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+            <span ng-if="!action.code">{{action.name}}</span>
+        </a>
+        <a ng-if="vm.deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{vm.deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
+        <a ng-if="vm.deal.actions.sms" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="sms:{{vm.deal.merchant.phone}}" ><i class="material-icons left">textsms</i>SMS</a>
+    </div>
+</div>

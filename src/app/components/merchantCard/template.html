@@ -1,0 +1,29 @@
+<div class="card" style="margin: 0.5rem 0 0.5rem 0;">
+    <div class="card-content" style="padding:10px;">
+        <div class="row" style="margin-bottom:0;">
+            <div class="col s3">
+                <img ng-src="{{vm.merchant.imageLink}}" alt="" class="responsive-img">
+            </div>
+            <div class="col s9">
+                <div><span ng-repeat="category in vm.merchant.category" class="new badge"
+                           ng-class="category.color"
+                           ng-click="$event.stopPropagation();vm.selectLabel(category);"
+                           style="position:initial;margin-right:10px;"
+                           data-badge-caption="{{category.displayName}}"></span><br/></div>
+                <a class="black-text"
+                   ng-href="/merchants/{{vm.merchant._id}}"><b>{{vm.merchant.pseudo}}</b></a><span
+                    class="grey-text"></span><br/>
+                <p style="margin: 0;">{{vm.merchant.adress}}, {{vm.merchant.city}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end">
+        <a ng-click="$event.stopPropagation();vm.actionFollow(merchant);" class="btn"
+           ng-class="vm.merchant.followsAlready ? 'teal lighten-3' : 'grey lighten-1'"
+           message="{{vm.merchant.followsAlready ? 'Vous ne suivez plus ' + vm.merchant.pseudo : 'Vous suivez désormais ' + vm.merchant.pseudo}}"
+           duration="3000" toast='click'>
+            <i class="material-icons left">{{vm.merchant.followsAlready ? 'playlist_add_check' :
+                'playlist_add'}}</i>{{vm.merchant.followsAlready ? 'Abonné' : 'S\'abonner'}}
+        </a>
+    </div>
+</div>

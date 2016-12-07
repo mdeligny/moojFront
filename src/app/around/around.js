@@ -9,17 +9,45 @@ angular
   });
 
 /** @ngInject */
-function AroundController($state, $http, $q, $rootScope, filterService, dealsService) {
+function AroundController($state, $http, $rootScope, filterService, dealsService) {
   var vm = this;
 
   var init = function () {
+    vm.isLoading = true;
+
+    var userLocation = filterService.getLocation();
+
+    if (userLocation) {
+      var query = 'location=' + userLocation + '&' + filterService.getQuery();
+
+      dealsService.getDeals(query)
+        .then(function (deals) {
+          vm.isLoading = false;
+
+          vm.deals = deals;
+
+          if (deals.length > 0 && !vm.cityText) {
+            vm.cityText = deals[0].merchant.city;
+          }
+        });
+    } else {
+      vm.localizeMe();
+    }
+  };
+
+  vm.localizeMe = function () {
+    vm.editCity = false;
+    vm.cityText = '';
+    vm.newCity = '';
     vm.isLoading = true;
     navigator.geolocation.getCurrentPosition(
       function (location) {
         var lat = location.coords.latitude;
         var lng = location.coords.longitude;
 
-        var query = 'location=' + lat + ',' + lng + '&' + filterService.getQuery();
+        filterService.setLocation(lat + ',' + lng);
+
+        var query = 'location=' + filterService.getLocation() + '&' + filterService.getQuery();
 
         dealsService.getDeals(query)
           .then(function (deals) {
@@ -56,31 +84,18 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
   filterService.addListener(getLabel);
 
   vm.refresh = function () {
-    var deferred = $q.defer();
+    var query = 'location=' + filterService.getLocation() + '&' + filterService.getQuery();
 
-    navigator.geolocation.getCurrentPosition(
-      function (location) {
-        var lat = location.coords.latitude;
-        var lng = location.coords.longitude;
+    return dealsService.getDeals(query)
+      .then(function (deals) {
+        vm.isLoading = false;
 
-        var query = 'location=' + lat + ',' + lng + '&' + filterService.getQuery();
-
-        dealsService.getDeals(query)
-          .then(function (deals) {
-            vm.deals = deals;
-
-            if (deals.length > 0) {
-              vm.cityText = deals[0].merchant.city;
-            }
-            deferred.resolve(true);
-          });
-      }
-    );
-    return deferred.promise;
+        vm.deals = deals;
+      });
   };
 
   vm.changeCity = function (cityName) {
-    vm.cityText = cityName;
+    vm.isLoading = true;
 
     $http
       .get('https://maps.googleapis.com/maps/api/geocode/json?address=' + cityName + '&key=AIzaSyC0NG1mGANovrnoM4Xx40ujcpal_kkPhrM')
@@ -89,13 +104,20 @@ function AroundController($state, $http, $q, $rootScope, filterService, dealsSer
           vm.editCity = false;
           var location = response.data.results[0].geometry.location.lat + ',' + response.data.results[0].geometry.location.lng;
 
-          var query = 'location=' + location + '&' + filterService.getQuery();
+          filterService.setLocation(location);
+
+          var query = 'location=' + filterService.getLocation() + '&' + filterService.getQuery();
 
           dealsService.getDeals(query)
             .then(function (deals) {
+              vm.cityText = cityName;
               vm.deals = deals;
+              vm.isLoading = false;
             });
         } else {
+          vm.cityText = cityName;
+          vm.isLoading = false;
+          filterService.setLocation('');
           vm.editCity = true;
           vm.deals = [];
         }

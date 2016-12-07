@@ -12,35 +12,7 @@
 
         <li ng-repeat="deal in $ctrl.deals | orderBy : 'orderDate'" ng-click="$ctrl.browseMerchant(deal.merchant);"
             class="collection-item avatar">
-            <div class="card" style="margin: 0.5rem 0 0.5rem 0;">
-                <div class="card-content" style="padding:10px;">
-                    <div class="row" style="margin-bottom:0;">
-                        <div class="col s3">
-                            <img ng-src="{{deal.merchant.imageLink}}" alt="" class="responsive-img">
-                        </div>
-                        <div class="col s9">
-                            <div><span ng-repeat="category in deal.merchant.category" class="new badge"
-                                       ng-class="category.color"
-                                       ng-click="$event.stopPropagation();$ctrl.selectLabel(category);"
-                                       style="position:initial;margin-right:10px;"
-                                       data-badge-caption="{{category.displayName}}"></span><br/>
-                            </div>
-                            <a class="black-text"
-                               ng-href="/merchants/{{deal.merchant._id}}"><b>{{deal.merchant.pseudo}}</b></a><span
-                                class="grey-text"> {{deal.time.valueText}}</span><br/>
-
-                            <p style="margin: 0;">{{deal.description}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="deal.actions.call || deal.merchant.externalLinks.length > 0">
-                    <a ng-repeat="action in deal.merchant.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
-                        <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
-                        <span ng-if="!action.code">{{action.name}}</span>
-                    </a>
-                    <a ng-if="deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
-                </div>
-            </div>
+            <deal-card deal="deal"></deal-card>
         </li>
 
         <li ng-if="$ctrl.deals.length === 0" class="collection-item center" style="padding:20px;">
