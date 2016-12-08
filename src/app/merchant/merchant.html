@@ -21,7 +21,7 @@
                 <a class="btn teal lighten-3" ng-href="tel:{{vm.merchant.phone}}" ><i class="material-icons">phone</i></a>
                 <a class="btn teal lighten-3" href="#map"><i class="material-icons">directions</i></a>
                 <a ng-repeat="action in vm.merchant.externalLinks" class="grey-text" ng-href="{{action.href}}" target="_blank">
-                    <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+                    <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;vertical-align: bottom;"/>
                     <span ng-if="!action.code">{{action.name}}</span>
                 </a>
             </div>

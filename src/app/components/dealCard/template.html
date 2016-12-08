@@ -14,7 +14,7 @@
     </div>
     <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end" ng-if="vm.deal.externalLinks.length > 0 || vm.deal.actions.call || vm.deal.actions.sms">
         <a ng-repeat="action in vm.deal.externalLinks" ng-click="$event.stopPropagation();" class="grey-text" ng-href="{{action.href}}" target="_blank">
-            <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;"/>
+            <img ng-if="action.code" ng-src="img/{{action.code}}.png" style="height: 36px;width: auto;vertical-align: bottom;"/>
             <span ng-if="!action.code">{{action.name}}</span>
         </a>
         <a ng-if="vm.deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{vm.deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
