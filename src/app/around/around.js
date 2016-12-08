@@ -13,6 +13,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
   var vm = this;
 
   var init = function () {
+    vm.errorMessage = "";
     vm.isLoading = true;
 
     var userLocation = filterService.getLocation();
@@ -28,7 +29,11 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
 
           if (deals.length > 0 && !vm.cityText) {
             vm.cityText = deals[0].merchant.city;
+          } else {
+            vm.errorMessage = "Malheureusement, il n'y a aucune annonce dans votre entourage ...";
           }
+        }, function () {
+          vm.errorMessage = "Erreur lors de la récupération des deals :(";
         });
     } else {
       vm.localizeMe();
@@ -36,6 +41,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
   };
 
   vm.localizeMe = function () {
+    vm.errorMessage = "";
     vm.editCity = false;
     vm.cityText = '';
     vm.newCity = '';
@@ -58,7 +64,17 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
             if (deals.length > 0) {
               vm.cityText = deals[0].merchant.city;
             }
+            else {
+              vm.errorMessage = "Malheureusement, il n'y a aucune annonce dans votre entourage ...";
+            }
+          }, function () {
+            vm.errorMessage = "Erreur lors de la récupération des deals :(";
           });
+      },
+      function () {
+        vm.errorMessage = "Veuillez activer la geolocalisation pour bénéficier pleinement du service.";
+        vm.isLoading = false;
+        vm.deals = [];
       }
     );
   };
@@ -84,6 +100,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
   filterService.addListener(getLabel);
 
   vm.refresh = function () {
+    vm.errorMessage = "";
     var query = 'location=' + filterService.getLocation() + '&' + filterService.getQuery();
 
     return dealsService.getDeals(query)
@@ -91,11 +108,14 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
         vm.isLoading = false;
 
         vm.deals = deals;
+      }, function () {
+        vm.errorMessage = "Erreur lors de la récupération des deals :(";
       });
   };
 
   vm.changeCity = function (cityName) {
     vm.isLoading = true;
+    vm.errorMessage = "";
 
     $http
       .get('https://maps.googleapis.com/maps/api/geocode/json?address=' + cityName + '&key=AIzaSyC0NG1mGANovrnoM4Xx40ujcpal_kkPhrM')
@@ -113,6 +133,13 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
               vm.cityText = cityName;
               vm.deals = deals;
               vm.isLoading = false;
+
+              if (deals.length === 0) {
+                vm.errorMessage = "Malheureusement, il n'y a aucune annonce dans votre entourage ...";
+              }
+
+            }, function () {
+              vm.errorMessage = "Erreur lors de la récupération des deals :(";
             });
         } else {
           vm.cityText = cityName;
@@ -120,6 +147,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
           filterService.setLocation('');
           vm.editCity = true;
           vm.deals = [];
+          vm.errorMessage = "Erreur lors de la localisation...";
         }
       });
   };

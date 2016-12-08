@@ -20,8 +20,8 @@
             <deal-card deal="deal"></deal-card>
         </li>
 
-        <li ng-if="$ctrl.deals.length === 0" class="collection-item center" style="padding:20px;">
-            <span style="margin:50px 0;display:block;">Malheureusement, il n'y a aucune annonce dans votre entourage ...<br/></span>
+        <li ng-if="$ctrl.errorMessage !== '' " class="collection-item center" style="padding:20px;">
+            <span style="margin:50px 0;display:block;">{{$ctrl.errorMessage}}<br/></span>
             <a class="center btn" ng-hide="$ctrl.editCity" ng-click="$ctrl.editCity = true;"><i class="material-icons left">edit</i>Changer de ville</a>
         </li>
     </ul>
