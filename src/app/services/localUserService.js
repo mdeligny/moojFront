@@ -18,14 +18,12 @@ angular.module('app')
     }
 
     function updateUser(following) {
-      console.log(following);
       return $http
         .put('https://mooj.herokuapp.com/users/' + moojLocalId, {
           following: following || []
         })
         .then(function (response) {
           user = response.data;
-          console.log(user);
           return user;
         });
     }
@@ -76,13 +74,7 @@ angular.module('app')
 
       if (user) {
         var following = user.following;
-
-        console.log(following);
-        console.log(list);
-
         var merchants = _.uniq(following.concat(list));
-
-        console.log(merchants);
 
         promise = updateUser(merchants);
       } else {

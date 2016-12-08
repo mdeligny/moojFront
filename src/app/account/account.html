@@ -7,15 +7,21 @@
         </div>
         <div class="row">
             <ul class="collection">
-                <li class="collection-item avatar" ng-repeat="merchant in vm.user.following | filter:vm.q"
-                    ng-click="vm.browseMerchant(merchant);">
-                    <img ng-src="{{merchant.imageLink}}" alt="" class="circle">
-                    <span class="title">{{merchant.pseudo}}</span>
-                    <p>{{merchant.adress}} <br>
+                <li class="collection-item avatar" ng-repeat="merchant in vm.user.following | filter:vm.q" ng-swipe-left="vm.swipeLeft(merchant);" ng-swipe-right="vm.swipeRight(merchant);">
+                    <img ng-src="{{merchant.imageLink}}" alt="" class="circle" ng-click="vm.browseMerchant(merchant);">
+                    <span class="title" ng-click="vm.browseMerchant(merchant);">{{merchant.pseudo}}</span>
+                    <p ng-click="vm.browseMerchant(merchant);">{{merchant.adress}} <br>
                         {{merchant.city}}
                     </p>
-                    <a ng-href="tel:{{merchant.phone}}" ng-click="$event.stopPropagation();"
-                       class="secondary-content"><i class="material-icons teal-text text-lighten-3">phone</i></a>
+                    <a ng-href="tel:{{merchant.phone}}" class="secondary-content"><i class="material-icons teal-text text-lighten-3">phone</i></a>
+                    <a ng-click="vm.unfollowMerchant($index,merchant);"
+                       class="red"
+                       style="position: absolute;right:0;top:0;width:70px;line-height:70px;height:100%;z-index:99;display: flex;flex-direction: column;justify-content: center;"
+                       ng-show="merchant.isSwiped"
+                       message="{{'Vous ne suivez plus ' + merchant.pseudo}}"
+                       duration="3000" toast='click'>
+                        <i class="material-icons white-text" style="text-align:center;">delete</i>
+                    </a>
                 </li>
             </ul>
         </div>

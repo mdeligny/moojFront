@@ -13,6 +13,22 @@ angular
         vm.user = user;
       });
 
+    vm.swipeLeft = function (merchant) {
+      merchant.isSwiped = true;
+    };
+
+    vm.swipeRight = function (merchant) {
+      merchant.isSwiped = false;
+    };
+
+    vm.unfollowMerchant = function (index,merchant) {
+      localUserService
+        .unfollowMerchant(merchant)
+        .then(function () {
+          vm.user.following.splice(index,1);
+        });
+    };
+
     vm.browseMerchant = function (merchant) {
       $rootScope.activePan = merchant.pseudo;
       $state.go('merchants', {id: merchant._id});
