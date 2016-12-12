@@ -19,5 +19,6 @@
         </a>
         <a ng-if="vm.deal.actions.call" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="tel:{{vm.deal.merchant.phone}}" ><i class="material-icons left">phone</i>Appeler</a>
         <a ng-if="vm.deal.actions.sms" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="sms:{{vm.deal.merchant.phone}}" ><i class="material-icons left">textsms</i>SMS</a>
+        <a ng-if="vm.deal.actions.mail" ng-click="$event.stopPropagation();" class="btn teal lighten-3" ng-href="mailto:{{vm.deal.merchant.email}}" ><i class="material-icons left">mail</i>Mail</a>
     </div>
 </div>
