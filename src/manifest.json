@@ -1,6 +1,6 @@
 {
   "short_name": "Mooj",
-  "name": "Mooj",
+  "name": "",
   "start_url": "./index.html",
   "icons": [
     {
@@ -40,8 +40,8 @@
       "density": 4.0
     }
   ],
-  "background_color": "Black",
-  "theme_color": "#00897b",
+  "background_color": "White",
+  "theme_color": "White",
   "display": "standalone",
   "orientation": "portrait"
 }
