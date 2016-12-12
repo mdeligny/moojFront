@@ -6,7 +6,7 @@ angular
       name: ''
     };
 
-    $rootScope.activePan = 'Mon compte';
+    $rootScope.headerTitle = 'Mon compte';
 
     localUserService.getUser()
       .then(function (user) {

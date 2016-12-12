@@ -110,24 +110,6 @@ function DiscoverController($state, $rootScope, $q, $http, localUserService, fil
     }
   };
 
-  vm.followMerchant = function (merchant) {
-    localUserService
-      .followMerchant(merchant)
-      .then(function () {
-        merchant.followers.totalCount++;
-        merchant.followsAlready = true;
-      });
-  };
-
-  vm.unfollowMerchant = function (merchant) {
-    localUserService
-      .unfollowMerchant(merchant)
-      .then(function () {
-        merchant.followers.totalCount--;
-        merchant.followsAlready = false;
-      });
-  };
-
   vm.followList = function (list) {
     localUserService
       .followList(list)
@@ -141,7 +123,7 @@ function DiscoverController($state, $rootScope, $q, $http, localUserService, fil
       $rootScope.swiping = false;
     } else {
       $state.go('merchants', {id: merchant._id});
-      $rootScope.activePan = merchant.pseudo;
+      $rootScope.headerTitle = merchant.pseudo;
     }
   };
 

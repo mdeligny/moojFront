@@ -4,7 +4,7 @@ angular
     var vm = this;
     var newImages = [];
 
-    $rootScope.activePan = 'Nouveau commerçant';
+    $rootScope.headerTitle = 'Nouveau commerçant';
 
     $http.get('https://mooj.herokuapp.com/categories').then(function (response) {
       vm.categories = response.data;

@@ -20,7 +20,11 @@ function HeaderController($rootScope, $scope, $http, filterService) {
   });
 
   $rootScope.$watch('activePan', function (n) {
-    vm.activePan = n;
+    vm.headerTitle = n;
+  });
+
+  $rootScope.$watch('headerTitle', function (n) {
+    vm.headerTitle = n;
   });
 
   $rootScope.$on('showMenu', function () {

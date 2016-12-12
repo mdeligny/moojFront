@@ -50,7 +50,7 @@ function DealsController($rootScope, $state, $q, filterService, dealsService) {
       $rootScope.swiping = false;
     } else {
       $state.go('merchants', {id: merchant._id});
-      $rootScope.activePan = merchant.pseudo;
+      $rootScope.headerTitle = merchant.pseudo;
     }
   };
 

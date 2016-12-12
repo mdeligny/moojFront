@@ -1,5 +1,5 @@
 angular
   .module('app')
   .controller('aboutCtrl', function ($rootScope) {
-    $rootScope.activePan = 'Qui sommes-nous ?';
+    $rootScope.headerTitle = 'Qui sommes-nous ?';
   });

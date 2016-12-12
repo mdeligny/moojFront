@@ -83,7 +83,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
     if ($rootScope.swiping) {
       $rootScope.swiping = false;
     } else {
-      $rootScope.activePan = merchant.pseudo;
+      $rootScope.headerTitle = merchant.pseudo;
       $state.go('merchants', {id: merchant._id});
     }
   };

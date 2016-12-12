@@ -6,7 +6,7 @@ angular
       name: ''
     };
 
-    $rootScope.activePan = 'Mes commerçants';
+    $rootScope.headerTitle = 'Mes commerçants';
 
     localUserService.getUser()
       .then(function (user) {
@@ -30,7 +30,7 @@ angular
     };
 
     vm.browseMerchant = function (merchant) {
-      $rootScope.activePan = merchant.pseudo;
+      $rootScope.headerTitle = merchant.pseudo;
       $state.go('merchants', {id: merchant._id});
     };
   });

@@ -24,7 +24,7 @@ angular
       $scope.$apply();
     });
 
-    $rootScope.activePan = $rootScope.activePan || 'around';
+    //$rootScope.activePan = $rootScope.activePan || 'around';
 
     vm.swipeMyMooj = function () {
       $rootScope.swiping = true;
@@ -57,12 +57,15 @@ angular
     };
 
     vm.getMyMooj = function () {
+      $rootScope.headerTitle = 'mes enseignes';
       $rootScope.activePan = 'mes enseignes';
     };
     vm.getAroundDeals = function () {
+      $rootScope.headerTitle = 'autour de moi';
       $rootScope.activePan = 'autour de moi';
     };
     vm.getDiscoverDeals = function () {
+      $rootScope.headerTitle = 'découvrir';
       $rootScope.activePan = 'découvrir';
     };
 
@@ -84,8 +87,11 @@ angular
       case 'découvrir':
         vm.swipeDiscover();
         break;
-      default:
+      case 'autour':
         vm.swipeAround();
+        break;
+      default:
+        vm.getAroundDeals();
         break;
     }
   });
