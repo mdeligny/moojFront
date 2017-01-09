@@ -65,7 +65,7 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
               vm.cityText = deals[0].merchant.city;
             }
             else {
-              vm.errorMessage = "Malheureusement, il n'y a aucune annonce dans votre entourage ...";
+              vm.errorMessage = "Malheureusement, il n'y a aucune annonce autour de vous ...";
             }
           }, function () {
             vm.errorMessage = "Erreur lors de la récupération des deals :(";
@@ -130,12 +130,14 @@ function AroundController($state, $http, $rootScope, filterService, dealsService
 
           dealsService.getDeals(query)
             .then(function (deals) {
-              vm.cityText = cityName;
+
               vm.deals = deals;
               vm.isLoading = false;
 
-              if (deals.length === 0) {
-                vm.errorMessage = "Malheureusement, il n'y a aucune annonce dans votre entourage ...";
+              if (deals.length > 0 && !vm.cityText) {
+                vm.cityText = deals[0].merchant.city;
+              } else {
+                vm.errorMessage = "Malheureusement, il n'y a aucune annonce autour de vous ...";
               }
 
             }, function () {
