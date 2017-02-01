@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="card-action" style="padding:10px;display:flex;justify-content: flex-end">
-        <a ng-click="$event.stopPropagation();vm.actionFollow(merchant);" class="btn"
+        <a ng-click="$event.stopPropagation();vm.actionFollow(vm.merchant);" class="btn"
            ng-class="vm.merchant.followsAlready ? 'teal lighten-3' : 'grey lighten-1'"
            message="{{vm.merchant.followsAlready ? 'Vous ne suivez plus ' + vm.merchant.pseudo : 'Vous suivez désormais ' + vm.merchant.pseudo}}"
            duration="3000" toast='click'>
