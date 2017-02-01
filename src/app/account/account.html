@@ -8,7 +8,13 @@
         <div class="row">
             <ul class="collection">
                 <li class="collection-item avatar" ng-repeat="merchant in vm.user.following | filter:vm.q" ng-swipe-left="vm.swipeLeft(merchant);" ng-swipe-right="vm.swipeRight(merchant);">
-                    <img ng-src="{{merchant.imageLink}}" alt="" class="circle" ng-click="vm.browseMerchant(merchant);">
+                    <img ng-src="{{merchant.imageLink}}" alt="" style="position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle;" ng-click="vm.browseMerchant(merchant);">
                     <span class="title" ng-click="vm.browseMerchant(merchant);">{{merchant.pseudo}}</span>
                     <p ng-click="vm.browseMerchant(merchant);">{{merchant.adress}} <br>
                         {{merchant.city}}

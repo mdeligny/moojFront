@@ -127,6 +127,10 @@ function DiscoverController($state, $rootScope, $q, $http, localUserService, fil
     }
   };
 
+  vm.selectList = function(list) {
+    $rootScope.headerTitle = list.name;
+  };
+
   vm.swipeLeft = function (list) {
     list.left = list.left - 120;
     if (list.left < -370) {

@@ -4,6 +4,7 @@ angular.module('app')
   .service('localUserService', function ($rootScope, $http, $q, $window) {
     var user = null;
     var moojLocalId = $window.localStorage.moojLocalId;
+    var self = this;
 
     function createUser(following) {
       return $http
@@ -67,21 +68,13 @@ angular.module('app')
     };
 
     this.followList = function (list) {
-      var promise;
-      var listIds = _.map(list.merchants, function (item) {
-        return item._id;
+      var promises = [];
+
+      list.merchants.forEach(function (merchant) {
+        promises.push(self.followMerchant(merchant));
       });
 
-      if (user) {
-        var following = user.following;
-        var merchants = _.uniq(following.concat(list));
-
-        promise = updateUser(merchants);
-      } else {
-        promise = createUser(listIds);
-      }
-
-      return promise;
+      return $q.all(promises);
     };
 
     this.unfollowMerchant = function (merchant) {

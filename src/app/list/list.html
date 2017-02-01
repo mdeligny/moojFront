@@ -1,0 +1,13 @@
+<div class=" scroller-container container grey lighten-3" style="height:100%;overflow: auto;padding-bottom:40px;">
+    <ul class="no-margin-top no-border">
+        <!-- Demo: orderDate to remove -->
+
+        <li ng-repeat="merchant in vm.list.merchants" ng-click="vm.browseMerchant(merchant);" class="">
+            <merchant-card merchant="merchant"></merchant-card>
+        </li>
+
+    </ul>
+
+</div>
+
+

@@ -27,6 +27,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider, $co
       controller: 'merchantItemCtrl',
       controllerAs: 'vm'
     })
+    .state('lists', {
+      url: '/lists/:id',
+      templateUrl: 'app/list/list.html',
+      controller: 'listCtrl',
+      controllerAs: 'vm'
+    })
     .state('settings', {
       url: '/settings',
       templateUrl: 'app/settings/settings.html',

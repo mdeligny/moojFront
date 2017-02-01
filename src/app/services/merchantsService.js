@@ -8,7 +8,7 @@ angular.module('app')
           return user._id;
         })
         .then(function (userId) {
-          return $http.get('https://mooj.herokuapp.com/merchants?userId=' + userId + '&' + query);
+          return $http.get('https://mooj.herokuapp.com/merchants?userId=' + userId + '&' + query + '&limit=10');
         })
         .then(function (response) {
           return response.data;
